@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>slide</title>
+	<style>
+		*{margin: 0; padding: 0;}
+		ul{list-style: none;}
+		.main{width: 760px; height: 300px; margin: 50px auto; position: relative;}
+		.pic{width: 760px; height: 300px; overflow: hidden;}
+		.pic ul li{width: 760px; height: 300px; position: relative; overflow: hidden;}
+		.img1{position: absolute; left: -760px; top: 0;}
+		.img2{position: absolute; left: -20px; top: 0; display: none;}
+
+		.nav{width: 125px; height: 30px; position: absolute; left: 620px; bottom: 10px;}
+		.nav ul li{width: 15px; height: 15px; border: 1px solid #fff; float: left; margin-left: 5px;}
+		.select{background: #fff;}
+	</style>
+</head>
+<body>
+	<div class="main">
+		<div class="pic">
+			<ul>
+				<li style="background: url(img/bg1.jpg)">
+					<img class="img1" src="img/text1.png"/>
+					<img class="img2" src="img/con1.png"/>
+				</li>
+				<li style="background: url(img/bg2.jpg)">
+					<img class="img1" src="img/text2.png"/>
+					<img class="img2" src="img/con2.png"/>
+				</li>
+				<li style="background: url(img/bg3.jpg)">
+					<img class="img1" src="img/text3.png"/>
+					<img class="img2" src="img/con3.png"/>
+				</li>
+				<li style="background: url(img/bg4.jpg)">
+					<img class="img1" src="img/text4.png"/>
+					<img class="img2" src="img/con4.png"/>
+				</li>
+				<li style="background: url(img/bg5.jpg)">
+					<img class="img1" src="img/text5.png"/>
+					<img class="img2" src="img/con5.png"/>
+				</li>
+			</ul>
+		</div>
+		<div class="nav">
+			<ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+	</div>
+	<script src="js/jquery-1.12.3.js"></script>
+	<script>
+		var index = 0;
+		myShow();
+		function myShow() {
+			$(".pic ul li").eq(index).find(".img1").animate({left: 0}, 500, function() {
+				var img2 = $(".pic ul li").eq(index).find(".img2");
+				img2.css("display", "block");
+				img2.animate({left: 0}, 500);
+			});
+		}
+
+		setInterval("change()", 2000);
+
+		function change() {
+			index++;
+			if(index == $(".pic ul li").size()) {
+				index = 0;
+			}
+			$(".pic ul li").eq(index).fadeIn(300).siblings().fadeOut();
+			$(".nav ul li").eq(index).addClass("select").siblings().removeClass("select");
+			myShow();
+			$(".pic ul li").eq(index).siblings().find(".img1").css("left", "-760px");
+			$(".pic ul li").eq(index).siblings().find(".img2").css("left", "-20px").hide();
+		}
+	</script>
+</body>
+</html>
